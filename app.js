@@ -27,6 +27,17 @@ function afficherMenu(){
   console.log("0. Quitter")
 }
 
+// chargement des donnees
+async function chargerRegistre(){
+try {
+  const operation = await chargerJson(FICHIER_DONNEES);
+  console.log(`${operations.length} operations(s) chrgee(s) depuis ${FICHIER_DONNEES}.`);
+  return operations;
+} catch (error) {
+  console.log(`Impossible de lire ${FICHIER_DONNEES}:${erreur.message}.Le registre demarre vide.`)
+  return []
+}
+}
 async function main() {
   ouvrirSaisie();
   console.log("À compléter : écrivez le menu dans app.js (fiches/3-ajouter-lister.md).");
