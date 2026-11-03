@@ -62,7 +62,7 @@ export function creerOperation(saisie) {
     parcelle: saisie.parcelle,
     culture: saisie.culture,
     operation: saisie.operation,
-    coutFCFA: versNombre(saisie.coutFCFA)
+    coutFCFA:versNombre(saisie.coutFCFA)
   };
 }
 
