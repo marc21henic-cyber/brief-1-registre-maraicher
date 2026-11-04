@@ -38,6 +38,23 @@ try {
   return []
 }
 }
+
+//choix 1:Ajouter une opération
+async function ajouter(operations){
+  console.log('--- Ajouter une opération ---');
+  const id = await demander('Identifiant(ex. O11) : ');
+  if(id === null) return;
+  const date = await demander('Date (AAAA-MM-JJ) : ');
+  if(date === null) return;
+  const parcelle = await demander('Parcelle (ex. P1) : ');
+  if(parcelle === null) return;
+  const culture = await demander('Culture (ex. tomate) : ');
+  if(culture === null) return;
+  const operation = await demander(`operation ${OPERATION} : `);
+  if(operation === null) return;
+  const cout = await demander('Coût en FCFA : ');
+  if (cout === null) return;
+}
 async function main() {
   ouvrirSaisie();
   console.log("À compléter : écrivez le menu dans app.js (fiches/3-ajouter-lister.md).");
