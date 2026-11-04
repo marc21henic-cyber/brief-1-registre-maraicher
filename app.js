@@ -81,6 +81,39 @@ async function lister(operations) {
  console.log(`--- Liste des opérations ${operations.length} ---`);
   console.log(listerOperations(operations));
 }
+// choix 3 : rechercher de ID, parcelle et cullture
+async function rechercher(operations) {
+  console.log('--- Rechercher ---');
+  console.log('1. Par identifiant');
+  console.log('2. Par parcelle');
+  console.log('3. Les opérations d\'une culture');
+  const sousChoix = await demander('Votre choix : ');
+  if (sousChoix === null) return;
+
+  if (sousChoix === '1') {
+    const id = await demander('Identifiant : ');
+    if (id === null) return;
+    const identifiant = id.toUpperCase();
+    const operation = trouverParId(operations, identifiant);
+    console.log(operation === undefined ? `Opération ${identifiant} introuvable.` : formaterOperation(operation));
+  } else if (sousChoix === '2') {
+    const saisie = await demander('Parcelle : ');
+    if (saisie === null) return;
+    const parcelle = saisie.toUpperCase();
+    const trouvees = filtrerParParcelle(operations, parcelle);
+    console.log(`${trouvees.length} opération(s) sur la parcelle ${parcelle} :`);
+    console.log(listerOperations(trouvees));
+  } else if (sousChoix === '3') {
+    const saisie = await demander('Culture : ');
+    if (saisie === null) return;
+    const culture = saisie.toLowerCase();
+    const trouvees = filtrerParCulture(operations, culture);
+    console.log(`${trouvees.length} opération(s) pour la culture ${culture} :`);
+    console.log(listerOperations(trouvees));
+  } else {
+    console.log('Choix inconnu : retour au menu.');
+  }
+}
 
 async function main() {
   ouvrirSaisie();
@@ -100,6 +133,9 @@ async function main() {
           break;
         case '2':
           lister(operations)
+          break;
+        case '3':
+          await rechercher(operations)
           break;
         case '0':
           console.log('Au revoir !');
