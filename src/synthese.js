@@ -5,7 +5,8 @@
 export function totalCouts(operations) {
   let total = 0
   for (const operaion of operations){
-    total += operation.coutFCFA}
+    total += operation.coutFCFA
+  }
   return total;
 }
 
@@ -13,7 +14,7 @@ export function totalCouts(operations) {
 // Exemple : { P1: { nombre: 4, total: 15500 }, P2: { nombre: 3, total: 9500 } }
 // Liste vide : {} (un objet vide).
 export function syntheseParParcelle(operations) {
-  const synthese = {}
+  const synthese = {};
   for (const operation of operations){
     const cle = operation.parcelle;
     if(!(cle in synthese)) {
@@ -28,18 +29,18 @@ export function syntheseParParcelle(operations) {
 // Renvoie { min, max } des coûts, ou null si la liste est vide.
 // Exemple : { min: 1500, max: 8000 }
 export function coutMinMax(operations) {
-  if (operations.length === 0){
+  if (operations.length === 0) {
     return null;
   }
   let min = operations[0].coutFCFA;
   let max = operations[0].coutFCFA;
   for (const operation of operations) {
-    if (operation.coutFCFA < min ){
+    if (operation.coutFCFA < min) {
       min = operation.coutFCFA;
     }
-    if ( operaion.coutFCFA > max){
-      max = operation.coutFCFA
+    if (operation.coutFCFA > max) {
+      max = operation.coutFCFA;
     }
   }
-  return{min, max}
+  return { min, max };
 }
