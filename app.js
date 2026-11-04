@@ -22,15 +22,15 @@ function afficherMenu(){
   console.log("1. Ajouter une opération")
   console.log("2. Lister les opérations")
   console.log("3. Rechercher (identifiant, parcelle, culture)")
-  console.log("Trier (coût, date)")
-  console.log("Synthèse des dépenses")
+  console.log("4. Trier (coût, date)")
+  console.log("5.Synthèse des dépenses")
   console.log("0. Quitter")
 }
 
 // chargement des donnees
 async function chargerRegistre(){
 try {
-  const operation = await chargerJson(FICHIER_DONNEES);
+  const operations = await chargerJson(FICHIER_DONNEES);
   console.log(`${operations.length} operations(s) chrgee(s) depuis ${FICHIER_DONNEES}.`);
   return operations;
 } catch (error) {
@@ -50,38 +50,73 @@ async function ajouter(operations){
   if(parcelle === null) return;
   const culture = await demander('Culture (ex. tomate) : ');
   if(culture === null) return;
-  const operation = await demander(`operation ${OPERATION} : `);
+  const operation = await demander(`operation (${OPERATIONS.join(', ')}) : `);
   if(operation === null) return;
   const cout = await demander('Coût en FCFA : ');
   if (cout === null) return;
 
   const saisie = {
-    id: id.toUppercase(),
+    id: id.toUpperCase(),
     date,
-    parcelle: parcelle.toUppercase(),
-    culture: culture.toLowercase(),
-    operation: operation.toLowercase(),
+    parcelle: parcelle.toUpperCase(),
+    culture: culture.toLowerCase(),
+    operation: operation.toLowerCase(),
     coutFCFA: cout,
-  }
-  const erreurs = ajouterOperation(operation, saisie);
+  };
+
+  const erreurs = ajouterOperation(operations, saisie);
   if( erreurs.length === 0){
-  await enregistrerJson(FICHIER_DONNEES, operations);
-  console.log(`operation ${saisie.id} ajoutee. Le registre compte ${operation.length} operation(s).`)
-}else {
-  console.log('Opération refusée :');
-  for(const erreurs of erreur){
+    await enregistrerJson(FICHIER_DONNEES, operations);
+    console.log(`operation ${saisie.id} ajoutee. Le registre compte ${operation.length} operation(s).`)
+  } else {
+    console.log('Opération refusée :');
+    for(const erreurs of erreur){
     console.log(` - ${erreur}`);
+    }
+  console.log(`le registre compte toujours ${operatoions.length} operation(s).`)
   }
-  console.log(`le registre compte toujours ${operatoion.length} operation(s).`)
 }
+// choix 2: lister les operations
 async function lister(operations) {
- console.log(`--- Liste des opérations ${operation.length} ---`);
+ console.log(`--- Liste des opérations ${operations.length} ---`);
   console.log(listerOperations(operations));
 }
-}
+
 async function main() {
   ouvrirSaisie();
-  console.log("À compléter : écrivez le menu dans app.js (fiches/3-ajouter-lister.md).");
+  afficherAccueil();
+  const operations = await chargerRegistre();
+  let continuer = true;
+  while(continuer){
+    afficherMenu();
+    const choix = await demander('Votre choix: ');
+    if (choix === null){
+      break;
+    }
+    try {
+      switch (choix.trim()) {
+        case '1':
+          await ajouter(operations)
+          break;
+        case '2':
+          lister(operations)
+          break;
+        case '0':
+          console.log('Au revoir !');
+          continuer = false
+          break     
+        default:
+          console.log(`choix inconnu :  «${choix}». Tapez un chiffre du menu.`);
+      }
+    } catch (erreur) {
+      if(erreur.message) {
+        console.log(`A completer: ${erreur.message}`);
+      }else{
+        console.log(`Erreur inattendu : ${erreur.message}`)
+      }
+      
+    }
+  }
   fermerSaisie();
 }
 
