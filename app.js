@@ -114,7 +114,25 @@ async function rechercher(operations) {
     console.log('Choix inconnu : retour au menu.');
   }
 }
+// choix 4 : trier par cout et pâr date 
+async function trier(operations) {
+  console.log('--- Trier ---');
+  console.log('1. Par coût croissant');
+  console.log('2. Par date, de la plus ancienne à la plus récente');
+  console.log('3. Par coût décroissant');
+  const sousChoix = await demander('Votre choix : ');
+  if (sousChoix === null) return;
 
+  if (sousChoix === '1') {
+    console.log(listerOperations(trierParCout(operations)));
+  } else if (sousChoix === '2') {
+    console.log(listerOperations(trierParDate(operations)));
+  } else if (sousChoix === '3') {
+    console.log(listerOperations(trierParCoutDecroissant(operations)));
+  } else {
+    console.log('Choix inconnu : retour au menu.');
+  }
+}
 async function main() {
   ouvrirSaisie();
   afficherAccueil();
@@ -136,6 +154,9 @@ async function main() {
           break;
         case '3':
           await rechercher(operations)
+          break;
+        case '4':
+          await trier(operations)
           break;
         case '0':
           console.log('Au revoir !');
