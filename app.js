@@ -74,6 +74,10 @@ async function ajouter(operations){
   }
   console.log(`le registre compte toujours ${operatoion.length} operation(s).`)
 }
+async function lister(operations) {
+ console.log(`--- Liste des opérations ${operation.length} ---`);
+  console.log(listerOperations(operations));
+}
 }
 async function main() {
   ouvrirSaisie();
