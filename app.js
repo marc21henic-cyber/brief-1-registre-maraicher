@@ -54,6 +54,26 @@ async function ajouter(operations){
   if(operation === null) return;
   const cout = await demander('Coût en FCFA : ');
   if (cout === null) return;
+
+  const saisie = {
+    id: id.toUppercase(),
+    date,
+    parcelle: parcelle.toUppercase(),
+    culture: culture.toLowercase(),
+    operation: operation.toLowercase(),
+    coutFCFA: cout,
+  }
+  const erreurs = ajouterOperation(operation, saisie);
+  if( erreurs.length === 0){
+  await enregistrerJson(FICHIER_DONNEES, operations);
+  console.log(`operation ${saisie.id} ajoutee. Le registre compte ${operation.length} operation(s).`)
+}else {
+  console.log('Opération refusée :');
+  for(const erreurs of erreur){
+    console.log(` - ${erreur}`);
+  }
+  console.log(`le registre compte toujours ${operatoion.length} operation(s).`)
+}
 }
 async function main() {
   ouvrirSaisie();
