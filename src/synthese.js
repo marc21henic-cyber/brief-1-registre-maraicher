@@ -3,9 +3,9 @@
 
 // Renvoie la somme des coûts, en FCFA. Liste vide : 0.
 export function totalCouts(operations) {
-  let total = 0
-  for (const operaion of operations){
-    total += operation.coutFCFA
+  let total = 0;
+  for (const operation of operations) {
+    total += operation.coutFCFA;
   }
   return total;
 }
@@ -18,7 +18,7 @@ export function syntheseParParcelle(operations) {
   for (const operation of operations){
     const cle = operation.parcelle;
     if(!(cle in synthese)) {
-      synthese[cle] = { nombre: 0, total: 0};
+      synthese[cle] = { nombre: 0, total: 0 };
     }
     synthese[cle].nombre += 1;
     synthese[cle].total += operation.coutFCFA;
