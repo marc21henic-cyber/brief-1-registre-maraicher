@@ -9,9 +9,9 @@
 | Fiche 3 : ajouter et lister ; choix 1 et 2 ; erreurs | Jour 2 | 2026-11-04 | Commits « registre: … » (2026-11-03), « app: choix 1… » et « app: choix 2 Lister… » ; `npm run test:registre`  : 13 tests verts |
 | Fiche 4 : rechercher et trier ; choix 3 et 4 | Jour 3 | 2026-11-04 | Commits « recherche: … », « rechercher: (trier)… », « app:choix 3… » et « app:choix 4… » ; `npm run test:recherche`: 7 tests verts |
 | Fiche 5 : synthèse ; choix 5 | Jour 3 | 2026-11-04 | Commit « app: choix 5 synthese» ; `npm run test:synthese` : 5 tests verts |
-| Tests par un camarade ; mes propres tests | Jour 4 | ✏️ | `test/cas-limites.test.js` (11 tests) ; `docs/releve-tests.md` rempli |
+| Tests par un camarade ; mes propres tests | Jour 4 | 2026-11-05 | `test/cas-limites.test.js` (11 tests) ; `docs/releve-tests.md` rempli |
 | Fiche agronomique ; README ; documents | Jour 4 | 2026-11-05 | `docs/` et README ; fiche agronomique relue par le coach |
-| Dépôt cloné et lancé ailleurs ; démonstration répétée | Jour 4 | ✏️ | Clone dans un autre dossier : `node app.js` et `npm test` fonctionnent |
+| Dépôt cloné et lancé ailleurs ; démonstration répétée | Jour 4 | 2026-11-05 | Clone dans un autre dossier : `node app.js` et `npm test` fonctionnent |
 | Bonus | Jour 3 | 2026-11-05 | Commits « bonus : Supprime du registre l'opération qui a cet identifiant. » et «  bonus : ajout de choix 7 modification des operation et rectification de certains parametre » ; `npm run test:bonus` : 8 tests verts |
 
 **Blocages** (le message exact, ce que j'ai essayé, la solution) :
