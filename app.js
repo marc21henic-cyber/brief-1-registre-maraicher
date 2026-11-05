@@ -24,6 +24,8 @@ function afficherMenu(){
   console.log("3. Rechercher (identifiant, parcelle, culture)")
   console.log("4. Trier (coût, date)")
   console.log("5.Synthèse des dépenses")
+  console.log('6. Supprimer une opération');
+  console.log('7. Modifier une opération');
   console.log("0. Quitter")
 }
 
@@ -154,6 +156,20 @@ function synthese(operations) {
   }
   console.log('Rappel : ce sont des dépenses. Sans les revenus, elles ne mesurent pas la rentabilité.');
 }
+// choix 6 : supprimeer une operation
+async function supprimer(operations) {
+  const saisie = await demander('Identifiant : ');
+  if (saisie === null) return;
+  const id = saisie.toUpperCase();
+  const supprimee = supprimerOperation(operations, id);
+  if (supprimee === undefined) {
+    console.log(`Opération ${id} introuvable.`);
+    return;
+  }
+  await enregistrerJson(FICHIER_DONNEES, operations);
+  console.log(`Opération ${id} supprimée. Le registre compte ${operations.length} opération(s).`);
+}
+
 async function main() {
   ouvrirSaisie();
   afficherAccueil();
