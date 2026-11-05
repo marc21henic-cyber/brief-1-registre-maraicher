@@ -4,7 +4,7 @@
 
 ## Contexte
 
-La responsable d'une exploitation maraîchère pédagogique note ses opérations (semis, repiquage, arrosage, désherbage, récolte) dans un carnet papier, ce qui provoque des oublis de suivi. Mon outil lui permet de saisir ces opérations dans un terminal : identifiant, date, parcelle, culture, type d'opération et coût en FCFA. Elle peut ensuite lister les opérations, en retrouver une par son identifiant, filtrer par parcelle ou par culture, trier par coût ou par date, et obtenir une synthèse : total des dépenses, nombre et total par parcelle, coût minimum et maximum. Les données sont enregistrées dans `donnees/operations.json` et retrouvées au prochain lancement. Le **coût enregistré** est une dépense ; l'outil ne contient ni **revenus** ni quantités récoltées, il ne peut donc pas calculer la **rentabilité** d'une parcelle ou d'une culture. Il ne donne aucun conseil de culture.
+La responsable d'une exploitation maraîchère pédagogique note ses opérations (semis, repiquage, arrosage, désherbage, récolte) dans un carnet papier, ce qui provoque des oublis de suivi. Mon outil lui permet de saisir ces opérations dans un terminal : identifiant, date, parcelle, culture, type d'opération et coût en FCFA. Elle peut ensuite lister les opérations, en retrouver une par son identifiant, filtrer par parcelle ou par culture, trier par coût ou par date, et obtenir une synthèse : total des dépenses, nombre et total par parcelle, coût minimum et maximum. Les données sont enregistrées dans `donnees/operations.json` et retrouvées au prochain lancement. Le coût enregistré est une dépense ; l'outil ne contient ni revenus ni quantités récoltées, il ne peut donc pas calculer la rentabilité d'une parcelle ou d'une culture. Il ne donne aucun conseil de culture.
 
 ## Prérequis et lancement
 
@@ -33,11 +33,11 @@ Sous PowerShell, si `npm` est bloqué : `npm.cmd test`.
 
 ## Données
 
-Le fichier `donnees/operations.json` contient 10 opérations de départ, sur trois parcelles (P1, P2, P3) et trois cultures (tomate, gombo, aubergine). Chaque opération a six champs : `id`, `date` (AAAA-MM-JJ), `parcelle`, `culture`, `operation` (parmi cinq valeurs) et `coutFCFA` (nombre positif ou nul, en FCFA) : voir [docs/dictionnaire-donnees.md](docs/dictionnaire-donnees.md). **Ces données sont fictives.**
+Le fichier `donnees/operations.json` contient 10 opérations de départ, sur trois parcelles (P1, P2, P3) et trois cultures (tomate, gombo, aubergine). Chaque opération a six champs : `id`, `date` (AAAA-MM-JJ), `parcelle`, `culture`, `operation` (parmi cinq valeurs) et `coutFCFA` (nombre positif ou nul, en FCFA) : voir [docs/dictionnaire-donnees.md](docs/dictionnaire-donnees.md). Ces données sont fictives.
 
 ## Limites
 
-- Le registre enregistre des **dépenses**, pas les revenus ni les quantités récoltées : il ne mesure pas la rentabilité.
+- Le registre enregistre des dépenses, pas les revenus ni les quantités récoltées : il ne mesure pas la rentabilité.
 - Le programme ne contrôle pas la cohérence entre parcelle et culture : `P1` avec `gombo` est accepté.
 - Aucun contrôle de cohérence entre la date et le cycle de la culture (un arrosage peut être daté avant le semis).
 - Un seul utilisateur à la fois : deux programmes ouverts en même temps peuvent s'écraser mutuellement dans le fichier JSON.
@@ -50,4 +50,4 @@ Le fichier `donnees/operations.json` contient 10 opérations de départ, sur tro
 
 ## Auteur
 
-✏️ *Prénom NOM, compte GitHub. Entraide : avec qui, sur quoi.*
+✏️ *MARC HENOC EBENEZER LIADE, [compte GitHub](https://github.com/marc21henic-cyber/brief-1-registre-maraicher.git). Entraide : SANOGO_zie_maruis/TIEMOKO_marie*
