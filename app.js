@@ -5,9 +5,9 @@
 import { demander, fermerSaisie, ouvrirSaisie } from './src/saisie.js';
 import { chargerJson, enregistrerJson } from './src/stockage.js';
 import { OPERATIONS, ajouterOperation, formaterOperation, listerOperations, trouverParId } from './src/registre.js';
+import { parcelleLaPlusCouteuse, modifierOperation, supprimerOperation, trierParCoutDecroissant } from './src/bonus.js';
 import { filtrerParCulture, filtrerParParcelle, trierParCout, trierParDate } from './src/recherche.js';
 import { coutMinMax, syntheseParParcelle, totalCouts } from './src/synthese.js';
-
 const FICHIER_DONNEES = 'donnees/operations.json';
 // accueil
 function afficherAccueil(){
@@ -23,8 +23,9 @@ function afficherMenu(){
   console.log("2. Lister les opérations")
   console.log("3. Rechercher (identifiant, parcelle, culture)")
   console.log("4. Trier (coût, date)")
-  console.log("5.Synthèse des dépenses")
-  console.log('6. Supprimer une opération');
+  console.log("5. Synthèse des dépenses")
+  console.log("6. Supprimer une opération");
+  console.log("7. Modifier une operation");
   console.log("0. Quitter")
 }
 
@@ -68,13 +69,13 @@ async function ajouter(operations){
   const erreurs = ajouterOperation(operations, saisie);
   if( erreurs.length === 0){
     await enregistrerJson(FICHIER_DONNEES, operations);
-    console.log(`operation ${saisie.id} ajoutee. Le registre compte ${operation.length} operation(s).`)
+    console.log(`operation ${saisie.id} ajoutée. Le registre compte ${operations.length} operation(s).`)
   } else {
     console.log('Opération refusée :');
-    for(const erreurs of erreur){
-    console.log(` - ${erreur}`);
+    for(const erreur of erreurs){
+    console.log(` -  ${erreur}`);
     }
-  console.log(`le registre compte toujours ${operatoions.length} operation(s).`)
+  console.log(`le registre compte toujours (${operatoions.length}) operation(s).`)
   }
 }
 // choix 2: lister les operations
@@ -160,7 +161,7 @@ async function supprimer(operations) {
   const saisie = await demander('Identifiant : ');
   if (saisie === null) return;
   const id = saisie.toUpperCase();
-  const Supprimee = supprimerOperation(operations, id);
+  const supprimee = supprimerOperation(operations, id);
   if (supprimee === undefined) {
     console.log(`Opération ${id} introuvable.`);
     return;
@@ -168,7 +169,29 @@ async function supprimer(operations) {
   await enregistrerJson(FICHIER_DONNEES, operations);
   console.log(`Opération ${id} supprimée. Le registre compte ${operations.length} opération(s).`);
 }
-
+// choix 7 : Modifier une operation 
+async function modifier(operations) {
+  const saisieId = await demander('Identifiant : ');
+  if (saisieId === null) return;
+  const id = saisieId.toUpperCase();
+  const champ = await demander('Champ à modifier (date, parcelle, culture, operation, coutFCFA) : ');
+  if (champ === null) return;
+  const valeur = await demander('Nouvelle valeur : ');
+  if (valeur === null) return;
+  let valeurNormalisee = valeur;
+  if (champ === 'parcelle') valeurNormalisee = valeur.toUpperCase();
+  if (champ === 'culture' || champ === 'operation') valeurNormalisee = valeur.toLowerCase();
+  const erreurs = modifierOperation(operations, id, champ, valeurNormalisee);
+  if (erreurs.length === 0) {
+    await enregistrerJson(FICHIER_DONNEES, operations);
+    console.log(`Opération ${id} modifiée.`);
+  } else {
+    console.log('Modification refusée :');
+    for (const erreur of erreurs) {
+      console.log(`  - ${erreur}`);
+    }
+  }
+}
 async function main() {
   ouvrirSaisie();
   afficherAccueil();
@@ -200,6 +223,9 @@ async function main() {
         case '6':
           await supprimer(operations)
           break;
+        case '7':
+          await modifier(operations)
+          break;
         case '0':
           console.log('Au revoir !');
           continuer = false
@@ -208,7 +234,7 @@ async function main() {
           console.log(`choix inconnu :  «${choix}». Tapez un chiffre du menu.`);
       }
     } catch (erreur) {
-      if(erreur.message) {
+      if(erreur.message.startsWith('TODO')) {
         console.log(`A completer: ${erreur.message}`);
       }else{
         console.log(`Erreur inattendu : ${erreur.message || erreur}`)
