@@ -47,7 +47,7 @@ const autres = operations.filter((autre) => autre !== operation);
 
 // Renvoie une COPIE triée par coût décroissant : la plus chère d'abord.
 export function trierParCoutDecroissant(operations) {
-  throw new Error('TODO Bonus : coder trierParCoutDecroissant dans src/bonus.js');
+  return [...operations].sort((a, b) => b.coutFCFA - a.coutFCFA);
 }
 
 // Renvoie la parcelle dont le total des coûts est le plus élevé : { parcelle, total },
