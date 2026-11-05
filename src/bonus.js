@@ -24,7 +24,25 @@ const position = operations.findIndex(op => op.id === id);
 // Erreurs : identifiant introuvable · champ 'id' (non modifiable) · champ absent de CHAMPS_MODIFIABLES
 //           · valeur refusée par les règles de l'ajout.
 export function modifierOperation(operations, id, champ, valeur) {
-  throw new Error('TODO Bonus : coder modifierOperation dans src/bonus.js');
+  const operation = trouverParId(operations, id);
+  if (operation === undefined) {
+    return [`Opération ${id} introuvable.`];
+  }
+  if (champ === 'id') {
+    return ["L'identifiant ne peut pas être modifié."];
+  }
+  if (!CHAMPS_MODIFIABLES.includes(champ)) {
+    return [`Le champ « ${champ} » n'est pas modifiable (champs possibles : ${CHAMPS_MODIFIABLES.join(', ')}).`];
+}
+const autres = operations.filter((autre) => autre !== operation);
+  const saisie = { ...operation, coutFCFA: String(operation.coutFCFA), [champ]: valeur };
+  const erreurs = verifierOperation(saisie, autres);
+  if (erreurs.length > 0) {
+    return erreurs;
+  }
+
+  operation[champ] = champ === 'coutFCFA' ? versNombre(valeur) : valeur;
+  return [];
 }
 
 // Renvoie une COPIE triée par coût décroissant : la plus chère d'abord.
