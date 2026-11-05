@@ -14,19 +14,19 @@
 
 | Action | Attendu | Obtenu | Testeur |
 | --- | --- | --- | --- |
-| Ajouter O11 (`o11`, `2026-10-27`, `p1`, `Tomate`, `Récolte`, `2500`) | « Opération O11 ajoutée. Le registre compte 11 opération(s). » ; encore là après redémarrage |  |  |
-| Ajouter avec coût `-500`, vide, `abc`, `500 FCFA` | refusé, message sur le coût, registre inchangé |  |  |
-| Ajouter avec `O01` (doublon) | refusé : identifiant déjà utilisé |  |  |
-| Date `27/10/2026` ou `2026-02-30` | refusée |  |  |
-| Opération `labour` | refusée, liste des opérations affichée |  |  |
-| Saisie avec six erreurs à la fois | six lignes d'erreur |  |  |
-| Rechercher `O03` / `O99` | ligne O03 / « Opération O99 introuvable. » |  |  |
-| Rechercher parcelle `P2` / culture `aubergine` | 3 opérations / 3 opérations |  |  |
-| Tri par coût, puis par date, puis lister | tri correct ; la liste (choix 2) revient dans l'ordre d'origine |  |  |
-| Synthèse (données de départ) | 40000 ; P1 4/15500 ; P2 3/9500 ; P3 3/15000 ; min 1500, max 8000 |  |  |
-| Choix `9`, Entrée sans rien taper | « Choix inconnu : … » puis le menu |  |  |
-| Registre vide (`[]`) : lister, synthèse | « Aucune opération enregistrée. » ; total 0, « aucune donnée » |  |  |
-| Fichier de données absent | message « Impossible de lire … Le registre démarre vide. » ||  |
-| Bonus : supprimer `O03`, `O99` ; modifier coût, `id`, valeur invalide | messages imposés, fichier mis à jour |  |  |
+| Ajouter O11 (`o11`, `2026-10-27`, `p1`, `Tomate`, `Récolte`, `2500`) | « Opération O11 ajoutée. Le registre compte 11 opération(s). » ; encore là après redémarrage | confome |  |
+| Ajouter avec coût `-500`, vide, `abc`, `500 FCFA` | refusé, message sur le coût, registre inchangé | confome |  |
+| Ajouter avec `O01` (doublon) | refusé : identifiant déjà utilisé |confome  |  |
+| Date `27/10/2026` ou `2026-02-30` | refusée | confome |  |
+| Opération `labour` | refusée, liste des opérations affichée | confome |  |
+| Saisie avec six erreurs à la fois | six lignes d'erreur | confome |  |
+| Rechercher `O03` / `O99` | ligne O03 / « Opération O99 introuvable. » | confome |  |
+| Rechercher parcelle `P2` / culture `aubergine` | 3 opérations / 3 opérations | confome |  |
+| Tri par coût, puis par date, puis lister | tri correct ; la liste (choix 2) revient dans l'ordre d'origine | confome |  |
+| Synthèse (données de départ) | 40000 ; P1 4/15500 ; P2 3/9500 ; P3 3/15000 ; min 1500, max 8000 | confome |  |
+| Choix `9`, Entrée sans rien taper | « Choix inconnu : … » puis le menu | confome |  |
+| Registre vide (`[]`) : lister, synthèse | « Aucune opération enregistrée. » ; total 0, « aucune donnée » |confome  |  |
+| Fichier de données absent | message « Impossible de lire … Le registre démarre vide. » |confome |  |
+| Bonus : supprimer `O03`, `O99` ; modifier coût, `id`, valeur invalide | messages imposés, fichier mis à jour | confome |  |
 
 **Sur un autre poste** (`git clone`, `node app.js`, `npm test`, en suivant le README) : ✏️

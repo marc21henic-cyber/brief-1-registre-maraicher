@@ -11,7 +11,7 @@
 | `operation` | Type d'opération réalisée | texte | présente dans la liste fermée ci-dessous ; saisie en minuscules | — | `arrosage` |
 | `coutFCFA` | Dépense enregistrée pour l'opération | nombre | positif ou nul ; accepte la virgule et les espaces (`3 000`) à la saisie, stocké comme nombre | FCFA | `2000` |   
 
-**Listes de valeurs autorisées** :operation` ∈ { `semis`, `arrosage`, `désherbage`, `repiquage`, `récolte` }. Aucune liste pour `parcelle` ni `culture` (le registre ne contrôle pas leur cohérence).
+**Listes de valeurs autorisées** :`operation` ∈ { `semis`, `arrosage`, `désherbage`, `repiquage`, `récolte` }. Aucune liste pour `parcelle` ni `culture` (le registre ne contrôle pas leur cohérence).
 
+**Sources** : `SUJET.md` (section « Les données ») ; `donnees/operations.json` ; liste des opérations fournie par le coach agronomie. Toutes les données sont fictives.
 
-**Sources** : ✏️
