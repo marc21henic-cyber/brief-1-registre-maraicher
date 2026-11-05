@@ -5,6 +5,7 @@ import { readFileSync } from 'node:fs';
 import {ajouterOperation, verifierOperation,} from './src/registre.js';
 import { filtrerParParcelle, trierParDate } from '../src/recherche.js';
 import { coutMinMax, syntheseParParcelle, totalCouts } from '../src/synthese.js';
+import { modifierOperation, parcelleLaPlusCouteuse } from '../src/bonus.js';
 
 const DONNEES = JSON.parse(readFileSync(new URL('./donnees-test.json', import.meta.url), 'utf8'));
 const copie = () => DONNEES.map((operation) => ({ ...operation }));
@@ -51,4 +52,17 @@ test('registre vide : total 0, synthèse {} et min/max null', () => {
 test('coutMinMax gère un coût égal à 0', () => {
   const operations = [{ coutFCFA: 0 }, { coutFCFA: 700 }];
   assert.deepEqual(coutMinMax(operations), { min: 0, max: 700 });
+});
+test('bonus : modifier la date d’une opération ne la rend pas doublon d’elle-même', () => {
+  const operations = copie();
+  assert.deepEqual(modifierOperation(operations, 'O03', 'date', '2026-11-01'), []);
+  assert.equal(operations[2].date, '2026-11-01');
+});
+
+test('bonus : en cas d’égalité, la première parcelle rencontrée gagne', () => {
+  const operations = [
+    { id: 'A', parcelle: 'P2', coutFCFA: 1000 },
+    { id: 'B', parcelle: 'P1', coutFCFA: 1000 },
+  ];
+  assert.deepEqual(parcelleLaPlusCouteuse(operations), { parcelle: 'P2', total: 1000 });
 });
