@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import {ajouterOperation, verifierOperation,} from './src/registre.js';
 import { filtrerParParcelle, trierParDate } from '../src/recherche.js';
+import { coutMinMax, syntheseParParcelle, totalCouts } from '../src/synthese.js';
 
 const DONNEES = JSON.parse(readFileSync(new URL('./donnees-test.json', import.meta.url), 'utf8'));
 const copie = () => DONNEES.map((operation) => ({ ...operation }));
@@ -40,4 +41,14 @@ test('filtrerParParcelle renvoie un nouveau tableau, pas le registre', () => {
 test('trierParDate garde l’ordre d’origine pour deux dates égales', () => {
   const triee = trierParDate([DONNEES[1], DONNEES[0]]); 
   assert.deepEqual(triee.map((operation) => operation.id), ['O02', 'O01']);
+});
+test('registre vide : total 0, synthèse {} et min/max null', () => {
+  assert.equal(totalCouts([]), 0);
+  assert.deepEqual(syntheseParParcelle([]), {});
+  assert.equal(coutMinMax([]), null);
+});
+
+test('coutMinMax gère un coût égal à 0', () => {
+  const operations = [{ coutFCFA: 0 }, { coutFCFA: 700 }];
+  assert.deepEqual(coutMinMax(operations), { min: 0, max: 700 });
 });
