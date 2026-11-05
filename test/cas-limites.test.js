@@ -3,6 +3,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import {ajouterOperation, verifierOperation,} from './src/registre.js';
+import { filtrerParParcelle, trierParDate } from '../src/recherche.js';
 
 const DONNEES = JSON.parse(readFileSync(new URL('./donnees-test.json', import.meta.url), 'utf8'));
 const copie = () => DONNEES.map((operation) => ({ ...operation }));
@@ -30,4 +31,13 @@ test('une saisie avec plusieurs règles violées renvoie une erreur par règle',
 
 test('un coût avec une unité (« 500 FCFA ») est refusé', () => {
   assert.equal(verifierOperation({ ...SAISIE, coutFCFA: '500 FCFA' }, DONNEES).length, 1);
+});
+test('filtrerParParcelle renvoie un nouveau tableau, pas le registre', () => {
+  const operations = copie();
+  assert.notEqual(filtrerParParcelle(operations, 'P1'), operations);
+});
+
+test('trierParDate garde l’ordre d’origine pour deux dates égales', () => {
+  const triee = trierParDate([DONNEES[1], DONNEES[0]]); 
+  assert.deepEqual(triee.map((operation) => operation.id), ['O02', 'O01']);
 });
