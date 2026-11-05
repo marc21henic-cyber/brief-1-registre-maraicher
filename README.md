@@ -50,4 +50,4 @@ Le fichier `donnees/operations.json` contient 10 opérations de départ, sur tro
 
 ## Auteur
 
-✏️ *MARC HENOC EBENEZER LIADE, [compte GitHub](https://github.com/marc21henic-cyber/brief-1-registre-maraicher.git). Entraide : SANOGO_zie_maruis/TIEMOKO_marie*
+✏️ *MARC HENOC EBENEZER LIADE, [compte GitHub](https://github.com/marc21henic-cyber/brief-1-registre-maraicher.git). Entraide : SANOGO_zie_maruis/TIEMOKO_marie/ dadie_jean_marie*
