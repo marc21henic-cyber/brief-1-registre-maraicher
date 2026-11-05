@@ -25,7 +25,6 @@ function afficherMenu(){
   console.log("4. Trier (coût, date)")
   console.log("5.Synthèse des dépenses")
   console.log('6. Supprimer une opération');
-  console.log('7. Modifier une opération');
   console.log("0. Quitter")
 }
 
@@ -156,12 +155,12 @@ function synthese(operations) {
   }
   console.log('Rappel : ce sont des dépenses. Sans les revenus, elles ne mesurent pas la rentabilité.');
 }
-// choix 6 : supprimeer une operation
+// choix 6 : supprimer une operation
 async function supprimer(operations) {
   const saisie = await demander('Identifiant : ');
   if (saisie === null) return;
   const id = saisie.toUpperCase();
-  const supprimee = supprimerOperation(operations, id);
+  const Supprimee = supprimerOperation(operations, id);
   if (supprimee === undefined) {
     console.log(`Opération ${id} introuvable.`);
     return;
@@ -198,6 +197,9 @@ async function main() {
         case '5':
           synthese(operations)
           break;
+        case '6':
+          await supprimer(operations)
+          break;
         case '0':
           console.log('Au revoir !');
           continuer = false
@@ -209,7 +211,7 @@ async function main() {
       if(erreur.message) {
         console.log(`A completer: ${erreur.message}`);
       }else{
-        console.log(`Erreur inattendu : ${erreur.message}`)
+        console.log(`Erreur inattendu : ${erreur.message || erreur}`)
       }
       
     }
