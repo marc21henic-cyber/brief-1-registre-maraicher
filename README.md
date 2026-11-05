@@ -4,7 +4,7 @@
 
 ## Contexte
 
-✏️ *En cinq à huit phrases : qui utilise l'outil (son métier, son geste professionnel), son besoin, ce qu'il saisit, ce que le programme lui affiche, ce que l'outil ne fait pas.*
+La responsable d'une exploitation maraîchère pédagogique note ses opérations (semis, repiquage, arrosage, désherbage, récolte) dans un carnet papier, ce qui provoque des oublis de suivi. Mon outil lui permet de saisir ces opérations dans un terminal : identifiant, date, parcelle, culture, type d'opération et coût en FCFA. Elle peut ensuite lister les opérations, en retrouver une par son identifiant, filtrer par parcelle ou par culture, trier par coût ou par date, et obtenir une synthèse : total des dépenses, nombre et total par parcelle, coût minimum et maximum. Les données sont enregistrées dans `donnees/operations.json` et retrouvées au prochain lancement. Le **coût enregistré** est une dépense ; l'outil ne contient ni **revenus** ni quantités récoltées, il ne peut donc pas calculer la **rentabilité** d'une parcelle ou d'une culture. Il ne donne aucun conseil de culture.
 
 ## Prérequis et lancement
 
@@ -21,24 +21,28 @@ Sous PowerShell, si `npm` est bloqué : `npm.cmd test`.
 
 ## Fonctionnalités
 
-✏️ *Cochez seulement ce qui marche : `- [x]`.*
+- [x] Données lues et enregistrées dans `donnees/operations.json`
+- [x] Ajouter une opération, saisies invalides refusées sans arrêter le programme
+- [x] Lister les opérations, message si le registre est vide
+- [x] Rechercher par identifiant ou par parcelle ; filtrer par culture
+- [x] Trier par coût ou par date
+- [x] Synthèse : total, nombre et total par parcelle, coût minimum et maximum
+- [x] Bonus : supprimer et modifier une opération (choix 6 et 7)
+- [x] Bonus : tri par coût décroissant, parcelle la plus coûteuse
 
-- [ ] Données lues et enregistrées dans `donnees/operations.json`
-- [ ] Ajouter une opération, saisies invalides refusées sans arrêter le programme
-- [ ] Lister les opérations, message si le registre est vide
-- [ ] Rechercher par identifiant ou par parcelle ; filtrer par culture
-- [ ] Trier par coût ou par date
-- [ ] Synthèse : total, nombre et total par parcelle, coût minimum et maximum
-- [ ] Bonus : supprimer et modifier une opération (choix 6 et 7)
-- [ ] Bonus : tri par coût décroissant, parcelle la plus coûteuse
 
 ## Données
 
-✏️ *Le fichier, le nombre d'opérations, les champs (voir [docs/dictionnaire-donnees.md](docs/dictionnaire-donnees.md)), les unités. Rappelez qu'elles sont fictives.*
+Le fichier `donnees/operations.json` contient 10 opérations de départ, sur trois parcelles (P1, P2, P3) et trois cultures (tomate, gombo, aubergine). Chaque opération a six champs : `id`, `date` (AAAA-MM-JJ), `parcelle`, `culture`, `operation` (parmi cinq valeurs) et `coutFCFA` (nombre positif ou nul, en FCFA) : voir [docs/dictionnaire-donnees.md](docs/dictionnaire-donnees.md). **Ces données sont fictives.**
 
 ## Limites
 
-✏️ *Au moins trois. Par exemple : le registre enregistre des dépenses, pas les revenus, il ne mesure donc pas la rentabilité.*
+- Le registre enregistre des **dépenses**, pas les revenus ni les quantités récoltées : il ne mesure pas la rentabilité.
+- Le programme ne contrôle pas la cohérence entre parcelle et culture : `P1` avec `gombo` est accepté.
+- Aucun contrôle de cohérence entre la date et le cycle de la culture (un arrosage peut être daté avant le semis).
+- Un seul utilisateur à la fois : deux programmes ouverts en même temps peuvent s'écraser mutuellement dans le fichier JSON.
+- Pas de sauvegarde automatique : si le fichier JSON est supprimé ou corrompu, le registre redémarre vide.
+
 
 ## Documents
 
